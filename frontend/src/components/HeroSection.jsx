@@ -21,7 +21,9 @@ const HeroSection = () => {
                 <h1 className="title dishes_title">Dishes</h1>
                 <img src="/threelines.svg" alt="threelines" />
               </div>
-              <img className="logo" src="logo.svg" alt="logo" />
+              {/* <img className="logo" src="logo.svg" alt="logo" /> */}
+              <div className="logo-container">
+              <img className="logo" src="LogoImg.png" alt="logo" height="150px" width="150px"  /></div>
             </div>
           </div>
         </div>

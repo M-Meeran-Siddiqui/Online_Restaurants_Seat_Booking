@@ -7,9 +7,9 @@ const Team = () => {
         <div className="heading_section">
           <h1 className="heading">OUR TEAM</h1>
           <p>
-          Meet our passionate team behind the Restaurant Reservation System. 
-          Each member brings a unique set of skills in design, development,
-           and customer service to ensure a seamless dining experience for you
+          Meet our dedicated team behind the Restaurant Seat Reservation System.
+          Each member contributes expertise in design, development, and customer
+          service to ensure a smooth and hassle-free seat booking experience for you.
           </p>
         </div>
         <div className="team_container">

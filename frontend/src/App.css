@@ -11,6 +11,22 @@
   display: none;
 }
 
+.logo-container{
+   width: 40%;
+   position:relative;
+   left: 12.95rem;
+   border-radius: 100%;
+   background-color: #3f3f3f;
+   border: 5px solid #0d0d0d;
+   box-sizing: border-box;
+   padding-bottom: 0.5rem;
+}
+@media only screen and ( min-width:768px ){
+  .logo-container{
+    left: 2.5rem;
+  }
+}
+
 /********************** HERO SECTION COMPONENT STYLING **************************/
 /**********************************************************************************************************************/
 nav {

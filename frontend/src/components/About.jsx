@@ -13,7 +13,7 @@ const About = () => {
               <p>The only thing we're serious about is food.</p>
             </div>
             <p className="mid">
-            Our Restaurant Reservation System is a modern, responsive MERN stack website designed to enhance your dining experience. Easily book a table at your favorite restaurant and explore the talented team members behind the scenes. The platform offers a seamless reservation process, ensuring that your table is ready when you arrive. The user-friendly design adapts to any device, making it accessible for everyone. Discover our culinary team's expertise and make your next dining experience truly special.
+            Our Restaurant Seat Reservation System is a modern, responsive MERN stack website designed to enhance your dining experience. Effortlessly book your preferred seats at your favorite restaurant and enjoy a seamless reservation process. Our platform ensures that your seats are ready upon arrival, providing convenience and flexibility. The user-friendly design adapts to any device, making it accessible for everyone. Reserve your seats today and make your dining experience truly special!
             </p>
             <Link to={"/"}>
               Explore Menu{" "}
