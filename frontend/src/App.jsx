@@ -20,3 +20,10 @@ const App = () => {
 }
 
 export default App
+// terminal-split-ctrl+shift+5
+// navigate to the respective folder
+// Run the following command-->
+// npm install
+// npm audit fix --force
+// npm start 
+// npm run dev
