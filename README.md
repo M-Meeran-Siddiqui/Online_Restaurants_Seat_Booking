@@ -32,7 +32,7 @@ This project is an **Online Restaurants Seat Booking System** built using the **
    ```
 2. Navigate to the project folder:  
    ```bash
-   cd Online-Reservation-Seat-Booking
+   cd Online-Restaurants-Seat-Booking
    ```
 
 3. Install backend dependencies:  
