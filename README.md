@@ -59,5 +59,5 @@ This project is an **Online Restaurants Seat Booking System** built using the **
    npm start
    ```
 
-7. Open `http://localhost:3000` in your browser to use the app.  
+7. Open `http://localhost:5173` in your browser to use the app.  
 
