@@ -1,10 +1,9 @@
-/*import React from "react";
+import React, { useState } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import axios from "axios";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import emailjs from 'emailjs-com'; //here is the import statement for emailjs
+import emailjs from "emailjs-com";
 
 const Reservation = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,187 +11,88 @@ const Reservation = () => {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState("");
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
+
+  const seats = [
+    "A1", "A2", "A3", "A4",
+    "B1", "B2", "B3", "B4",
+    "C1", "C2", "C3", "C4",
+  ];
 
   const handleReservation = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await axios.post(
-       "http://localhost:4000/api/v1/reservation/send",
-        { firstName, lastName, email, phone, date, time },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-      toast.success(data.message);
-      setFirstName("");
-      setLastName("");
-      setPhone(0);
-      setEmail("");
-      setTime("");
-      setDate("");
-      navigate("/success");
-    } catch (error) {
-      toast.error(error.response.data.message);
+
+    if (!firstName || !lastName || !email || !phone || !date || !time || selectedSeats.length === 0) {
+      toast.error("Please fill all the fields and select at least one seat.");
+      return;
     }
-  };
-
-  return (
-    <section className="reservation" id="reservation">
-      <div className="container">
-        <div className="banner">
-          <img src="/reservation.png" alt="res" />
-        </div>
-        <div className="banner">
-          <div className="reservation_form_box">
-            <h1>MAKE A RESERVATION</h1>
-            <p>For Further Questions, Please Call</p>
-            <form>
-              <div>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  type="date"
-                  placeholder="Date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-                <input
-                  type="time"
-                  placeholder="Time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="email_tag"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <button type="submit" onClick={handleReservation}>
-                RESERVE NOW{" "}
-                <span>
-                  <HiOutlineArrowNarrowRight />
-                </span>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Reservation;
-*/
-import React from "react";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import axios from "axios";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import emailjs from "emailjs-com";  // Keep this import as is
-
-const Reservation = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [phone, setPhone] = useState(0);
-  const navigate = useNavigate();
-
-  // Handle reservation form submission
-  const handleReservation = async (e) => {
-    e.preventDefault();
 
     try {
-      // Send reservation data to backend (no changes here)
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/reservation/send",
-        { firstName, lastName, email, phone, date, time },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          firstName,
+          lastName,
+          email,
+          phone,
+          date,
+          time,
+          seats: selectedSeats,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
+
       toast.success(data.message);
 
-      // Now send an email via EmailJS
-      emailjs.send(
-        "service_wi4cw75",  // replace with your service ID
-        "template_6xib0d6",  // replace with your template ID
+      await emailjs.send(
+        "service_wi4cw75",    
+        "template_6xib0d6",   
         {
           from_name: `${firstName} ${lastName}`,
-          email: email,
-          phone: phone,
-          date: date,
-          time: time,
+          email,
+          phone,
+          date,
+          time,
+          seats: selectedSeats.join(", "),
         },
-        "H47EOtkXOHrnjWG2p"  // replace with your public key
-      ).then(
-        (response) => {
-          console.log("Success!", response.status, response.text);
-        },
-        (err) => {
-          console.log("Failed...", err);
-        }
+        "H47EOtkXOHrnjWG2p"
       );
 
-      // Reset form fields
-      setFirstName("");
-      setLastName("");
-      setPhone(0);
-      setEmail("");
-      setTime("");
-      setDate("");
-
-      // Navigate to the success page
+      resetForm();
       navigate("/success");
+      
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error(error);
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
+  };
+
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setDate("");
+    setTime("");
+    setPhone("");
+    setSelectedSeats([]);
   };
 
   return (
     <section className="reservation" id="reservation">
       <div className="container">
         <div className="banner">
-          <img src="/reservation.png" alt="res" />
+          <img src="/reservation.png" alt="reservation" />
         </div>
         <div className="banner">
           <div className="reservation_form_box">
             <h1>MAKE A RESERVATION</h1>
             <p>For Further Questions, Please Call</p>
-            <form>
+            <form onSubmit={handleReservation}>
               <div>
                 <input
                   type="text"
@@ -210,13 +110,11 @@ const Reservation = () => {
               <div>
                 <input
                   type="date"
-                  placeholder="Date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 />
                 <input
                   type="time"
-                  placeholder="Time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
                 />
@@ -230,13 +128,31 @@ const Reservation = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                  type="number"
+                  type="tel"
                   placeholder="Phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <button type="submit" onClick={handleReservation}>
+              <div className="seat-selection">
+                <h3>Select Your Seats</h3>
+                <select
+                  multiple
+                  value={selectedSeats}
+                  onChange={(e) =>
+                    setSelectedSeats(
+                      Array.from(e.target.selectedOptions, (option) => option.value)
+                    )
+                  }
+                >
+                  {seats.map((seat) => (
+                    <option key={seat} value={seat}>
+                      {seat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button type="submit">
                 RESERVE NOW{" "}
                 <span>
                   <HiOutlineArrowNarrowRight />

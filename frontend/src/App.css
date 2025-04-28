@@ -1117,3 +1117,32 @@ footer .container .banner .right {
   }
 }
 /**********************************************************************************************************************/
+
+/* Updated Seat Selection Styling */
+.seat-selection {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.seat-selection h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.seat-selection select {
+  width: 100%;
+  max-width: 400px;
+  height: 150px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+}
+
+.seat-selection select option {
+  padding: 5px;
+}

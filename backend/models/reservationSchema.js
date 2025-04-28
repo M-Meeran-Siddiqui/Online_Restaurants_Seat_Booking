@@ -33,6 +33,14 @@ const reservationSchema = new mongoose.Schema({
     minLength: [11, "Phone number must contain 11 Digits."],
     maxLength: [11, "Phone number must contain 11 Digits."],
   },
+  seats: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: (v) => v.length > 0,
+      message: "At least one seat must be selected.",
+    },
+  },
 });
 
 export const Reservation = mongoose.model("Reservation", reservationSchema);
