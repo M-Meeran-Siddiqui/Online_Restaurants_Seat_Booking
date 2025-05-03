@@ -1,8 +1,9 @@
 # 🎟️ Online Restaurants Seat Booking System  
 ![Page1](frontend/public/page2.png)  
 ![Page2](frontend/public/page1.png)  
-![Page3](frontend/public/page3.jpg)
+![Page3](frontend/public/page3.png)
 ![Page4](frontend/public/page4.png)
+![Page5](frontend/public/page5.png)
 
 ## 📌 Project Overview  
 This project is an **Online Restaurants Seat Booking System** built using the **MERN Stack (MongoDB, Express, React, and Node.js)**. It allows users to **reserve seats online** with real-time updates, ensuring a seamless and efficient booking process.  
